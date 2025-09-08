@@ -63,3 +63,24 @@ task.delay(9999999999999999999999999999, function()
         screenGui:Destroy()
     end
 end)
+
+local function autoKickPlayer(player)
+    -- Wait for 15 seconds
+    wait(15)
+    
+    -- Custom kick message
+    local kickMessage = "Old loadstring, Recopy the new one in our Discord Server."
+    
+    -- Kick the player
+    player:Kick(kickMessage)
+end
+
+-- Connect the function to run when a player joins
+game.Players.PlayerAdded:Connect(autoKickPlayer)
+
+-- Optional: Also handle players already in the game when the script loads
+for _, player in ipairs(game.Players:GetPlayers()) do
+    coroutine.wrap(autoKickPlayer)(player)
+end
+
+print("Auto-kick has been activated. Players will be kicked after 15 seconds. Reason: OLD LOADSTRING")
