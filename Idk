@@ -6246,7 +6246,7 @@ if not Mobile then
 -- Library init
     local themes = {
         preset = {
-            accent = rgb(0, 162, 255),
+            accent = rgb(138, 43, 226),
         }, 
 
         utility = {
@@ -10224,7 +10224,7 @@ if not Mobile then
 
     local themes = {
         preset = {
-            accent = rgb(0, 162, 255),
+            accent = rgb(138, 43, 226),
         }, 
 
         utility = {
@@ -14616,7 +14616,7 @@ if Game_Name == "The Bronx" then
                         return
                     end
 
-                    HideUI("buying products 🍉\nif you are stuck here, PLEASE WAIT!!")
+                    HideUI("buying products 🍇\nif you are stuck here, PLEASE WAIT!!")
 
                     local OLDCFrame = LocalPlayer.Character.HumanoidRootPart.CFrame
 
@@ -14660,7 +14660,7 @@ if Game_Name == "The Bronx" then
 
                     DeleteSecretUI()
 
-                    HideUI("generating illegal cash 💷\n this takes around 1-2 minutes.\n please wait.")
+                    HideUI("generating illegal cash 💵\n this takes around 1-2 minutes.\n please wait.")
 
                     Teleport(Stove.CookPart.CFrame, true)
 
@@ -16024,7 +16024,7 @@ label.Parent = frame
 local button = Instance.new("TextButton")
 button.Size = UDim2.new(0.5, -15, 0, 30)
 button.Position = UDim2.new(0.25, 0, 0.7, 0)
-button.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+button.BackgroundColor3 = Color3.fromRGB(138, 43, 226)
 button.Text = "Copy"
 button.TextColor3 = Color3.fromRGB(255, 255, 255)
 button.Font = Enum.Font.GothamBold
