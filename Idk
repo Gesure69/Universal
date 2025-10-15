@@ -272,7 +272,7 @@ local Config = {
 
         ["TeleportationList"] = {
             ["Deli Market 🥪"] = CFrame.new(-602.3944091796875, 253.73313903808594, -584.2000732421875);
-            ["Capital One Bank 🏦"] = CFrame.new(-205, 284, -1214);
+            ["Capital One Bank 🏦"] = CFrame.new(-222.43960571289062, 283.8095397949219, -1202.06103515625);
             ["Ice Box 🧊"] = CFrame.new(-198.8927001953125, 283.8486633300781, -1170.4500732421875);
             ["Domino's 🍕"] = CFrame.new(-742.5213012695312, 253.22897338867188, -946.2092895507812);
             ["Hotel 🏨"] = CFrame.new(-1012, 266, -933);
@@ -281,10 +281,10 @@ local Config = {
             ["Car Dealer 🚗"] = CFrame.new(-378.6668701171875, 253.2564697265625, -1245.4259033203125);
             ["Laundromat 💷"] = CFrame.new(-979.4635620117188, 253.65318298339844, -689.3339233398438);
             ["Studio 🎙"] = CFrame.new(93408.453125, 14484.7158203125, 570.139404296875);
-            ["Basketball Court 🏀"] = CFrame.new(-1055.6407470703125, 253.51364135742188, -497.10528564453125);
+            ["Basketball Court 🏀"] = CFrame.new(-941.1542358398438, 253.97064208984375, -408.6098937988281);
             ["Robbable Ice Box 🧊"] = CFrame.new(-209.68360900878906, 283.4959411621094, -1265.5286865234375);
             ["Exotic Dealer / Grass House 🍃"] = CFrame.new(-1521.943115234375, 272.5462646484375, -984.3020629882812);
-            ["Safe 🔒"] = CFrame.new(-190, 295, -1010);
+            ["Safe 🔒"] = CFrame.new(-183.67051696777344, 295.9679870605469, -998.7326049804688);
             ["Roof Top / Bank Tools 🛠"] = CFrame.new(-385, 340, -557);
             ["Second Gun Shop 🔫"] = CFrame.new(66202, 123615.7109375, 5749.81689453125);
             ["Construction Job 🔨"] = CFrame.new(-1729, 371, -1171);
@@ -754,7 +754,7 @@ local Config = {
 end]]
 
 getgenv().library = {
-    directory = "bronx.lol_remastered",
+    directory = "Gesure_remastered",
     folders = {
         "/fonts",
         "/configs",
@@ -6246,7 +6246,7 @@ if not Mobile then
 -- Library init
     local themes = {
         preset = {
-            accent = rgb(138, 43, 226),
+            accent = rgb(128, 0, 255),
         }, 
 
         utility = {
@@ -10224,7 +10224,7 @@ if not Mobile then
 
     local themes = {
         preset = {
-            accent = rgb(138, 43, 226),
+            accent = rgb(128, 0, 255),
         }, 
 
         utility = {
@@ -14616,7 +14616,7 @@ if Game_Name == "The Bronx" then
                         return
                     end
 
-                    HideUI("buying products 🍇\nif you are stuck here, PLEASE WAIT!!")
+                    HideUI("buying products 🍉\nif you are stuck here, PLEASE WAIT!!")
 
                     local OLDCFrame = LocalPlayer.Character.HumanoidRootPart.CFrame
 
@@ -14660,7 +14660,7 @@ if Game_Name == "The Bronx" then
 
                     DeleteSecretUI()
 
-                    HideUI("generating illegal cash 💵\n this takes around 1-2 minutes.\n please wait.")
+                    HideUI("generating illegal cash 💷\n this takes around 1-2 minutes.\n please wait.")
 
                     Teleport(Stove.CookPart.CFrame, true)
 
@@ -16024,7 +16024,7 @@ label.Parent = frame
 local button = Instance.new("TextButton")
 button.Size = UDim2.new(0.5, -15, 0, 30)
 button.Position = UDim2.new(0.25, 0, 0.7, 0)
-button.BackgroundColor3 = Color3.fromRGB(138, 43, 226)
+button.BackgroundColor3 = Color3.fromRGB(128, 0, 255)
 button.Text = "Copy"
 button.TextColor3 = Color3.fromRGB(255, 255, 255)
 button.Font = Enum.Font.GothamBold
