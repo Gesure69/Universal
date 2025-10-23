@@ -754,7 +754,7 @@ local Config = {
 end]]
 
 getgenv().library = {
-    directory = "Gesure_remastered",
+    directory = "bronx.lol_remastered",
     folders = {
         "/fonts",
         "/configs",
