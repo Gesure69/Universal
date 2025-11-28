@@ -264,7 +264,7 @@ if isfunctionhooked then
     end
 end
 
-local SafePosition = CFrame.new(-437, 33, 6653)
+local SafePosition = CFrame.new(-183.67051696777344, 295.9679870605469, -998.7326049804688)
 
 local Config = {
     ["TheBronx"] = {
@@ -14491,7 +14491,173 @@ if Game_Name == "The Bronx" then
 
                 Column = MiscTab:column({})
 
-                local DupingSection = Column:section({name = "Duping Section", size = 0.29, default = false, side = 'right', icon = GetImage("Node.png")}) 
+                local DupingSection = Column:section({name = "Duping Section", size = 0.29, default = false, side = 'right', icon = GetImage("Node.png")})
+ 
+-- Services
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local StarterGui = game:GetService("StarterGui")
+
+local Player = Players.LocalPlayer
+local ScriptEnabled = false
+local Processing = false
+local LastToolName = nil
+
+-- Notify function
+local function SendNote(info)
+    pcall(function()
+        library.notifications:create_notification({
+            name = "AutoDupe",
+            info = info,
+            lifetime = 4
+        })
+    end)
+end
+
+-- Find first instance of tool
+local function getSingleToolInstance(toolName)
+    local char = Player.Character
+    local bp = Player:FindFirstChild("Backpack")
+
+    if char then
+        for _, t in ipairs(char:GetChildren()) do
+            if t:IsA("Tool") and t.Name == toolName then
+                return t
+            end
+        end
+    end
+    if bp then
+        for _, t in ipairs(bp:GetChildren()) do
+            if t:IsA("Tool") and t.Name == toolName then
+                return t
+            end
+        end
+    end
+    return nil
+end
+
+local function waitToolGone(toolName, timeout)
+    timeout = timeout or 4
+    local start = tick()
+    while tick() - start < timeout do
+        local char = Player.Character
+        local bp = Player:FindFirstChild("Backpack")
+        local found = false
+
+        if char then
+            for _, t in ipairs(char:GetChildren()) do
+                if t:IsA("Tool") and t.Name == toolName then
+                    found = true
+                end
+            end
+        end
+        if bp then
+            for _, t in ipairs(bp:GetChildren()) do
+                if t:IsA("Tool") and t.Name == toolName then
+                    found = true
+                end
+            end
+        end
+
+        if not found then return true end
+        task.wait(0.05)
+    end
+    return false
+end
+
+local function processTool(tool)
+    if not tool or Processing or not ScriptEnabled then return end
+    Processing = true
+
+    local toolName = tool.Name
+    LastToolName = toolName
+
+    local char = Player.Character or Player.CharacterAdded:Wait()
+    local humanoid = char:FindFirstChildOfClass("Humanoid")
+
+    if not humanoid then
+        Processing = false
+        return
+    end
+
+    humanoid:UnequipTools()
+
+    local ToolId
+    local gotMatch = false
+    local conn
+    conn = ReplicatedStorage.MarketItems.ChildAdded:Connect(function(item)
+        if gotMatch then return end
+        if item.Name == toolName then
+            local ok, owner = pcall(function() return item:WaitForChild("owner").Value end)
+            if ok and owner == Player.Name then
+                ToolId = item:GetAttribute("SpecialId")
+                gotMatch = true
+            end
+        end
+    end)
+
+    pcall(function() ReplicatedStorage.ListWeaponRemote:FireServer(toolName, 99999) end)
+    task.wait(0.25)
+
+    pcall(function() ReplicatedStorage.BackpackRemote:InvokeServer("Store", toolName) end)
+    task.wait(2)
+
+    pcall(function() ReplicatedStorage.BuyItemRemote:FireServer(toolName, "Remove", ToolId) end)
+
+    waitToolGone(toolName, 4)
+
+    pcall(function() ReplicatedStorage.BackpackRemote:InvokeServer("Grab", toolName) end)
+    conn:Disconnect()
+
+    local newTool = getSingleToolInstance(toolName)
+    if newTool and humanoid then
+        pcall(function() humanoid:EquipTool(newTool) end)
+    end
+
+    task.wait(6)
+    Processing = false
+end
+
+local function watcher()
+    while ScriptEnabled do
+        if not Processing then
+            local char = Player.Character
+            local currentTool = char and char:FindFirstChildOfClass("Tool")
+
+            if currentTool then
+                processTool(currentTool)
+            elseif LastToolName then
+                local t = getSingleToolInstance(LastToolName)
+                if t then
+                    local hum = Player.Character and Player.Character:FindFirstChildOfClass("Humanoid")
+                    if hum then
+                        pcall(function() hum:EquipTool(t) end)
+                    end
+                end
+            end
+        end
+        task.wait(0.2)
+    end
+end
+
+-- Toggle integration
+DupingSection:toggle({
+    type = "toggle",
+    name = "AutoDupe",
+    flag = "AutoDupeFlag",
+    default = false,
+
+    callback = function(state)
+        ScriptEnabled = state
+
+        if state then
+            SendNote("Successfully Enabled")
+            task.spawn(watcher)
+        else
+            SendNote("Successfully Disabled!")
+        end
+    end
+})
 
                 local Cooldown = false;
 
